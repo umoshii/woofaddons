@@ -3,28 +3,41 @@
 	"id": "woofaddons",
 	"version": "${version}",
 	"name": "Woofaddons",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "woooff,,",
+
 	"authors": [
-		"Me!"
+		"umoshii"
 	],
+
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+
+	"license": "MIT",
 	"icon": "assets/woofaddons/icon.png",
 	"environment": "*",
+
 	"entrypoints": {
 		"main": [
 			{
-				"value": "io.github.umoshii.woofaddons.Woofaddons",
+				"value": "pet.itpuppy.woofaddons.Woofaddons",
+				"adapter": "kotlin"
+			}
+		],
+
+		"server": [
+			{
+				"value": "pet.itpuppy.woofaddons.WoofaddonsServer",
 				"adapter": "kotlin"
 			}
 		]
 	},
+
 	"mixins": [
 		"woofaddons.mixins.json"
 	],
+
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.2",
