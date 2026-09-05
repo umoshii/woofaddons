@@ -1,0 +1,14 @@
+[versions]
+minecraft          = "26.2"
+fabric-loader      = "0.19.3"
+fabric-api         = "0.158.0+26.2"
+fabric-lang-kotlin = "1.13.13+kotlin.2.4.10"
+
+[libraries]
+minecraft          = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric-loader      = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+fabric-api         = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
+fabric-lang-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-lang-kotlin" }
+
+[bundles]
+fabric = ["fabric-api", "fabric-lang-kotlin", "fabric-loader"]

@@ -1,4 +1,4 @@
-package pet.itpuppy.woofaddons.commands
+package pet.itpuppy.woofaddons.commands.implementation
 
 import com.mojang.brigadier.context.CommandContext
 import pet.itpuppy.woofaddons.utils.Comp
@@ -9,6 +9,7 @@ import net.minecraft.commands.Commands.argument
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
+import pet.itpuppy.woofaddons.commands.ServerCommand
 
 object BoopCommand : ServerCommand {
     override fun register() {
@@ -24,30 +25,30 @@ object BoopCommand : ServerCommand {
     }
 
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
-        val player      = ctx.source.player ?: return 0
-        val target      = EntityArgument.getPlayer(ctx, "player")
+        val player = ctx.source.player ?: return 0
+        val target = EntityArgument.getPlayer(ctx, "player")
 
-        val playerUsername = player.displayName.copy()
-        val targetUsername = target.displayName.copy()
-
+        val targetUsernameComponent = Comp.buildUsernameComponent(target)
         val playerMessage = Component.translatable(
             "%s %s You booped %s!",
 
             Comp.PRIVATE_ICON_COMPONENT,
             Comp.literal("BOOP", true),
-            targetUsername.withColor(target.teamColor)
+            targetUsernameComponent
         ).withColor(TextColor.LIGHT_PURPLE)
 
+        val playerUsernameComponent = Comp.buildUsernameComponent(player)
         val targetMessage = Component.translatable(
             "%s %s %s booped you!",
 
             Comp.PRIVATE_ICON_COMPONENT,
             Comp.literal("BOOP", true),
-            playerUsername.withColor(player.teamColor)
+            playerUsernameComponent
         ).withColor(TextColor.LIGHT_PURPLE)
 
         player.sendSystemMessage(playerMessage)
         target.sendSystemMessage(targetMessage)
+
         return 1
     }
 }

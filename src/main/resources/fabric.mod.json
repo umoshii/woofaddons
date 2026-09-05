@@ -2,16 +2,16 @@
 	"schemaVersion": 1,
 	"id": "woofaddons",
 	"version": "${version}",
-	"name": "Woofaddons",
+	"name": "Woofaddons!",
 	"description": "woooff,,",
 
 	"authors": [
-		"umoshii"
+		"itpuppy"
 	],
 
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://fabricmc.net/"
 	},
 
 	"license": "MIT",

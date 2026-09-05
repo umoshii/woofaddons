@@ -1,21 +1,21 @@
-package pet.itpuppy.woofaddons.commands
+package pet.itpuppy.woofaddons.commands.implementation
 
 import com.mojang.brigadier.context.CommandContext
-import pet.itpuppy.woofaddons.utils.Comp
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
+import pet.itpuppy.woofaddons.commands.ServerCommand
+import pet.itpuppy.woofaddons.utils.Comp
 
-object MeowCommand : ServerCommand {
-    private val meows = listOf("MEOW", "MRRP", "MROW", "NYAN", "PRRR")
-    private val color = TextColor.fromRgb(0xdca1bb)
+object ShowCommand : ServerCommand {
+    private val shows = listOf("SHOW", "LOOK", "HERE")
 
     override fun register() {
         CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
             dispatcher.register(
-                Commands.literal("mrrp").executes(::onExecuteCommand)
+                Commands.literal("show").executes(::onExecuteCommand)
             )
         }
     }
@@ -23,13 +23,15 @@ object MeowCommand : ServerCommand {
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
         val player      = ctx.source.player ?: return 0
         val username    = player.displayName.copy()
+        val heldItem    = player.activeItem
 
         val message = Component.translatable(
-            "%s %s meowed!",
+            "%s %s is holding %s",
 
-            Comp.literal(meows.random(), true),
-            username.withColor(player.teamColor)
-        ).withColor(color)
+            Comp.literal(shows.random(), true),
+            username.withColor(player.teamColor),
+            heldItem.displayName
+        ).withColor(TextColor.GRAY)
 
         val broadcaster = ctx.source.server.playerList
         broadcaster.broadcastSystemMessage(message, false)

@@ -1,4 +1,4 @@
-package pet.itpuppy.woofaddons.commands
+package pet.itpuppy.woofaddons.commands.implementation
 
 import com.mojang.brigadier.context.CommandContext
 import pet.itpuppy.woofaddons.utils.Comp
@@ -7,6 +7,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
+import pet.itpuppy.woofaddons.commands.ServerCommand
 
 object PleadCommand : ServerCommand {
     private val color = TextColor.fromRgb(0xffe8a3)
@@ -20,17 +21,17 @@ object PleadCommand : ServerCommand {
     }
 
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
-        val player      = ctx.source.player ?: return 0
-        val username    = player.displayName.copy()
+        val player = ctx.source.player ?: return 0
+        val broadcaster = ctx.source.server.playerList
 
+        val usernameComponent = Comp.buildUsernameComponent(player)
         val message = Component.translatable(
             "%s %s pleads! \uD83E\uDD7A",
 
             Comp.literal("PLEAD", true),
-            username.withColor(player.teamColor)
+            usernameComponent
         ).withColor(color)
 
-        val broadcaster = ctx.source.server.playerList
         broadcaster.broadcastSystemMessage(message, false)
         return 1
     }

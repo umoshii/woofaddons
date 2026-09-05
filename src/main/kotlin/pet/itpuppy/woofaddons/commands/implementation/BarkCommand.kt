@@ -1,4 +1,4 @@
-package pet.itpuppy.woofaddons.commands
+package pet.itpuppy.woofaddons.commands.implementation
 
 import com.mojang.brigadier.context.CommandContext
 import pet.itpuppy.woofaddons.utils.Comp
@@ -7,32 +7,32 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
+import pet.itpuppy.woofaddons.commands.ServerCommand
 
-object ShowCommand : ServerCommand {
-    private val shows = listOf("SHOW", "LOOK", "HERE")
+object BarkCommand : ServerCommand {
+    private val barks = listOf("BARK", "WOOF", "AWRF", "AWOO", "ARFF")
+    private val color = TextColor.fromRgb(0xffc387)
 
     override fun register() {
         CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
             dispatcher.register(
-                Commands.literal("show").executes(::onExecuteCommand)
+                Commands.literal("bark").executes(::onExecuteCommand)
             )
         }
     }
 
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
-        val player      = ctx.source.player ?: return 0
-        val username    = player.displayName.copy()
-        val heldItem    = player.activeItem
-
-        val message = Component.translatable(
-            "%s %s is holding %s",
-
-            Comp.literal(shows.random(), true),
-            username.withColor(player.teamColor),
-            heldItem.displayName
-        ).withColor(TextColor.GRAY)
-
+        val player = ctx.source.player ?: return 0
         val broadcaster = ctx.source.server.playerList
+
+        val usernameComponent = Comp.buildUsernameComponent(player)
+        val message = Component.translatable(
+            "%s %s barked!",
+
+            Comp.literal(barks.random(), true),
+            usernameComponent
+        ).withColor(color)
+
         broadcaster.broadcastSystemMessage(message, false)
         return 1
     }
