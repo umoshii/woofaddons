@@ -9,7 +9,15 @@ object WoofaddonsServer : DedicatedServerModInitializer {
         val events = listOf(ChatEvent)
         events.forEach { it.register() }
 
-        val commands = listOf(ShowCommand, BarkCommand, MeowCommand, BoopCommand, PleadCommand, LoreCommand)
+        val commands = listOf(
+            ShowCommand,
+            BarkCommand,
+            MeowCommand,
+            BoopCommand,
+            PleadCommand,
+            LoreCommand,
+            ResetLoreCommand
+        )
         commands.forEach { it.register() }
     }
 }
