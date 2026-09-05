@@ -27,21 +27,22 @@ object ChatEvent {
         val username = player.displayName.copy()
         val msg      = message.decoratedContent().copy()
 
+        val deathCountComponent = Component.translatable("[%s]", Comp.literal(deaths, TextColor.YELLOW)).withColor(TextColor.DARK_GRAY)
         val hover = hoverComponentBuilder(player)
-        val component = Component.translatable(
-            "[%s] %s » %s",
 
-            Comp.literal(deaths, TextColor.YELLOW),
+        val component = Component.translatable(
+            "%s %s » %s",
+
+            deathCountComponent,
             username.withColor(player.teamColor).withHoverText(hover),
             msg.withColor(TextColor.WHITE)
-        ).withColor(TextColor.DARK_GRAY)
+        ).withColor(TextColor.GRAY)
 
         return component
     }
 
     fun hoverComponentBuilder(player: ServerPlayer): Component {
         val username = player.displayName.copy()
-
         // ticks -> seconds -> hours
         val playtime = ((player.stats.getValue(Stats.CUSTOM.get(Stats.PLAY_TIME)) / 20.0) / 3600.0).floorTo(1)
 

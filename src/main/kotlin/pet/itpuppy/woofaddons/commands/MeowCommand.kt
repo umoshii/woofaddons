@@ -15,7 +15,7 @@ object MeowCommand : ServerCommand {
     override fun register() {
         CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
             dispatcher.register(
-                Commands.literal("meow").executes(::onExecuteCommand)
+                Commands.literal("mrrp").executes(::onExecuteCommand)
             )
         }
     }
