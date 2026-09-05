@@ -7,7 +7,6 @@ import net.minecraft.commands.Commands
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
-import net.minecraft.world.item.component.ItemLore
 import pet.itpuppy.woofaddons.utils.Comp
 
 object ResetLoreCommand : ServerCommand {
@@ -23,7 +22,7 @@ object ResetLoreCommand : ServerCommand {
         val player   = ctx.source.player ?: return 0
         val heldItem = player.activeItem
 
-        heldItem.set(DataComponents.LORE, ItemLore(listOf(Component.empty())))
+        heldItem.remove(DataComponents.LORE)
         val message = Component.translatable(
             "%s %s Reset lore for item %s",
 
