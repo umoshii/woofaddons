@@ -1,38 +1,38 @@
-package pet.itpuppy.woofaddons.commands.implementation
+package pet.itpuppy.woofaddons.commands
 
 import com.mojang.brigadier.context.CommandContext
+import pet.itpuppy.woofaddons.utils.Comp
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
-import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
-import pet.itpuppy.woofaddons.commands.ServerCommand
-import pet.itpuppy.woofaddons.utils.Comp
 
-object ResetLoreCommand : ServerCommand {
+object BarkCommand : ServerCommand {
+    private val barks = listOf("BARK", "WOOF", "AWRF", "AWOO", "ARFF")
+    private val color = TextColor.fromRgb(0xffc387)
+
     override fun register() {
         CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
             dispatcher.register(
-                Commands.literal("resetlore").executes(::onExecuteCommand)
+                Commands.literal("bark").executes(::onExecuteCommand)
             )
         }
     }
 
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
         val player = ctx.source.player ?: return 0
-        val heldItem = player.activeItem
+        val broadcaster = ctx.source.server.playerList
 
-        heldItem.remove(DataComponents.LORE)
+        val usernameComponent = Comp.buildUsernameComponent(player)
         val message = Component.translatable(
-            "%s %s Reset lore for item %s",
+            "%s %s barked!",
 
-            Comp.PRIVATE_ICON_COMPONENT,
-            Comp.literal("LORE", true),
-            heldItem.displayName
-        ).withColor(TextColor.GRAY)
+            Comp.literal(barks.random(), true),
+            usernameComponent
+        ).withColor(color)
 
-        player.sendSystemMessage(message)
+        broadcaster.broadcastSystemMessage(message, false)
         return 1
     }
 }

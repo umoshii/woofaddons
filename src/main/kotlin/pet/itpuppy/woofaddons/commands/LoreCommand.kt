@@ -1,4 +1,4 @@
-package pet.itpuppy.woofaddons.commands.implementation
+package pet.itpuppy.woofaddons.commands
 
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.context.CommandContext
@@ -11,7 +11,6 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
 import net.minecraft.world.item.component.ItemLore
-import pet.itpuppy.woofaddons.commands.ServerCommand
 
 object LoreCommand : ServerCommand {
     private val color: TextColor = TextColor.fromRgb(0x8a8a8a)

@@ -1,4 +1,4 @@
-package pet.itpuppy.woofaddons.commands.implementation
+package pet.itpuppy.woofaddons.commands
 
 import com.mojang.brigadier.context.CommandContext
 import pet.itpuppy.woofaddons.utils.Comp
@@ -9,7 +9,6 @@ import net.minecraft.commands.Commands.argument
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.TextColor
-import pet.itpuppy.woofaddons.commands.ServerCommand
 
 object BoopCommand : ServerCommand {
     override fun register() {

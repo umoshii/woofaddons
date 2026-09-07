@@ -1,7 +1,13 @@
 package pet.itpuppy.woofaddons
 
 import net.fabricmc.api.DedicatedServerModInitializer
-import pet.itpuppy.woofaddons.commands.implementation.*
+import pet.itpuppy.woofaddons.commands.BarkCommand
+import pet.itpuppy.woofaddons.commands.BoopCommand
+import pet.itpuppy.woofaddons.commands.LoreCommand
+import pet.itpuppy.woofaddons.commands.MeowCommand
+import pet.itpuppy.woofaddons.commands.PleadCommand
+import pet.itpuppy.woofaddons.commands.ResetLoreCommand
+import pet.itpuppy.woofaddons.commands.ShowCommand
 import pet.itpuppy.woofaddons.events.ChatEvent
 
 object WoofaddonsServer : DedicatedServerModInitializer {
