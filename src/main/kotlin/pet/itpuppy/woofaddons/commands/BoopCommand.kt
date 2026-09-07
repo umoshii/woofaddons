@@ -27,22 +27,20 @@ object BoopCommand : ServerCommand {
         val player = ctx.source.player ?: return 0
         val target = EntityArgument.getPlayer(ctx, "player")
 
-        val targetUsernameComponent = Comp.buildUsernameComponent(target)
         val playerMessage = Component.translatable(
             "%s %s You booped %s!",
 
             Comp.PRIVATE_ICON_COMPONENT,
             Comp.literal("BOOP", true),
-            targetUsernameComponent
+            Comp.buildUsernameComponent(target)
         ).withColor(TextColor.LIGHT_PURPLE)
 
-        val playerUsernameComponent = Comp.buildUsernameComponent(player)
         val targetMessage = Component.translatable(
             "%s %s %s booped you!",
 
             Comp.PRIVATE_ICON_COMPONENT,
             Comp.literal("BOOP", true),
-            playerUsernameComponent
+            Comp.buildUsernameComponent(player)
         ).withColor(TextColor.LIGHT_PURPLE)
 
         player.sendSystemMessage(playerMessage)

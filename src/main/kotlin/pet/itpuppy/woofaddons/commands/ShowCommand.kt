@@ -20,19 +20,18 @@ object ShowCommand : ServerCommand {
     }
 
     override fun onExecuteCommand(ctx: CommandContext<CommandSourceStack>): Int {
-        val player      = ctx.source.player ?: return 0
-        val username    = player.displayName.copy()
-        val heldItem    = player.activeItem
+        val player = ctx.source.player ?: return 0
+        val heldItem = player.activeItem
+        val broadcaster = ctx.source.server.playerList
 
         val message = Component.translatable(
             "%s %s is holding %s",
 
             Comp.literal(shows.random(), true),
-            username.withColor(player.teamColor),
+            Comp.buildUsernameComponent(player),
             heldItem.displayName
         ).withColor(TextColor.GRAY)
 
-        val broadcaster = ctx.source.server.playerList
         broadcaster.broadcastSystemMessage(message, false)
         return 1
     }

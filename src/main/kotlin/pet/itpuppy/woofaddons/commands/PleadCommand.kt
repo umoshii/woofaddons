@@ -23,12 +23,11 @@ object PleadCommand : ServerCommand {
         val player = ctx.source.player ?: return 0
         val broadcaster = ctx.source.server.playerList
 
-        val usernameComponent = Comp.buildUsernameComponent(player)
         val message = Component.translatable(
             "%s %s pleads! \uD83E\uDD7A",
 
             Comp.literal("PLEAD", true),
-            usernameComponent
+            Comp.buildUsernameComponent(player)
         ).withColor(color)
 
         broadcaster.broadcastSystemMessage(message, false)
