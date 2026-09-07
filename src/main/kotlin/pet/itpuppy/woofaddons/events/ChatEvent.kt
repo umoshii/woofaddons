@@ -25,15 +25,14 @@ object ChatEvent {
     fun messageBuilder(player: ServerPlayer, message: PlayerChatMessage): Component {
         val playerDeaths = player.stats.getValue(Stats.CUSTOM.get(Stats.DEATHS)).toString()
 
-        val usernameComponent = player.displayName.copy().withColor(player.teamColor)
         val messageComponent  = message.decoratedContent().copy().withColor(TextColor.WHITE)
-        val deathsComponent   = Component.translatable("[%s]", Comp.literal(playerDeaths, TextColor.YELLOW))
+        val deathsComponent   = Component.translatable("[%s]", Comp.literal(playerDeaths, TextColor.YELLOW)).withColor(TextColor.DARK_GRAY)
 
         val message = Component.translatable(
             "%s %s » %s",
 
             deathsComponent,
-            usernameComponent,
+            Comp.buildUsernameComponent(player),
             messageComponent
         ).withColor(TextColor.GRAY)
 
