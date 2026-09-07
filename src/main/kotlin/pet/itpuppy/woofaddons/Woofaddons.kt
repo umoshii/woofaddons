@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer
 import net.minecraft.resources.Identifier
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import pet.itpuppy.woofaddons.commands.ServerCommand
 
 object Woofaddons : ModInitializer {
 	const val MOD_ID: String = "woofaddons"
@@ -12,10 +11,6 @@ object Woofaddons : ModInitializer {
 
 	override fun onInitialize() {
 		LOGGER.info("woof!")
-
-		ServerCommand::class.sealedSubclasses
-			.mapNotNull { it.objectInstance }
-			.forEach { it.register() }
 	}
 
 	fun id(path: String): Identifier = Identifier.fromNamespaceAndPath(MOD_ID, path)
