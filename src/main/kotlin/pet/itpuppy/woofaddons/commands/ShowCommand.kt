@@ -32,6 +32,8 @@ object ShowCommand : ServerCommand {
             heldItem.displayName
         ).withColor(TextColor.GRAY)
 
+        if (heldItem.count > 1) message.append(" (x${heldItem.count})")
+
         broadcaster.broadcastSystemMessage(message, false)
         return 1
     }
