@@ -14,7 +14,7 @@ object Woofaddons : ModInitializer {
 	override fun onInitialize() {
 		LOGGER.info("woof!")
 
-        //return // Return when testing in singleplayer
+        return // Return when testing in singleplayer
         ChatEvent.register()
 
         ServerCommand::class.sealedSubclasses
