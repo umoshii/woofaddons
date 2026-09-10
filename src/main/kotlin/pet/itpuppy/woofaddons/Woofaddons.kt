@@ -5,7 +5,7 @@ import net.minecraft.resources.Identifier
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import pet.itpuppy.woofaddons.commands.ServerCommand
-import pet.itpuppy.woofaddons.events.ChatEvent
+import pet.itpuppy.woofaddons.events.ServerEvent
 
 object Woofaddons : ModInitializer {
 	const val MOD_ID: String = "woofaddons"
@@ -15,7 +15,9 @@ object Woofaddons : ModInitializer {
 		LOGGER.info("woof!")
 
         return // Return when testing in singleplayer
-        ChatEvent.register()
+		ServerEvent::class.sealedSubclasses
+			.mapNotNull { it.objectInstance }
+			.forEach { it.register() }
 
         ServerCommand::class.sealedSubclasses
             .mapNotNull { it.objectInstance }

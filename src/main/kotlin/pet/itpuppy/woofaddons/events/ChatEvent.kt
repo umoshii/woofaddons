@@ -9,8 +9,8 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.stats.Stats
 import pet.itpuppy.woofaddons.utils.Comp
 
-object ChatEvent {
-    fun register() {
+object ChatEvent : ServerEvent {
+    override fun register() {
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register(::customChatEvent)
     }
 
